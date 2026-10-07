@@ -50,4 +50,13 @@ class DownloadedFile extends Model
     {
         return $this->ready_at !== null && $this->expires_at->isFuture() && filled($this->path);
     }
+
+    public function isPreviewableImage(): bool
+    {
+        if (! $this->isReady() || blank($this->path)) {
+            return false;
+        }
+
+        return in_array(strtolower((string) $this->extension), ['jpg', 'jpeg', 'png', 'gif', 'webp'], true);
+    }
 }

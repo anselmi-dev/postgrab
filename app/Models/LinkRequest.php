@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -19,5 +20,18 @@ class LinkRequest extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    /**
+     * @return Builder<LinkRequest>
+     */
+    public static function latestValueForTweet(string $column, string $tweetColumn, bool $filledOnly = false): Builder
+    {
+        return static::query()
+            ->select($column)
+            ->whereColumn('link_requests.tweet_id', $tweetColumn)
+            ->when($filledOnly, fn (Builder $query) => $query->whereNotNull($column)->where($column, '!=', ''))
+            ->latest('link_requests.id')
+            ->limit(1);
     }
 }
