@@ -1,11 +1,11 @@
 <div @if($pendingFileId) wire:poll.2s="refreshDownload" @endif>
     <div class="grid grid-cols-1 gap-4 lg:grid-cols-3">
         <x-card class="lg:col-span-2">
-            <form wire:submit="lookup" class="flex flex-col gap-3 sm:flex-row">
-                <input wire:model="url" type="url" required placeholder="{{ __('app.url_placeholder') }}" class="w-full rounded-2xl bg-white px-5 py-4 text-base text-ink outline-none ring-2 ring-transparent placeholder:text-muted focus:ring-accent">
-                <button type="submit" class="rounded-2xl bg-ink px-6 py-4 font-medium text-white" wire:loading.attr="disabled" wire:target="lookup">
+            <form wire:submit="lookup" class="relative flex flex-col gap-3 sm:flex-row">
+                <input wire:model="url" type="url" required placeholder="{{ __('app.url_placeholder') }}" class="w-full rounded-2xl bg-white px-5 py-4 text-base text-ink outline-none ring-2 ring-transparent placeholder:text-muted focus:ring-accent" wire:loading.attr="readonly" wire:target="lookup">
+                <button type="submit" class="pg-press inline-flex items-center justify-center gap-2 rounded-2xl bg-ink px-6 py-4 font-medium text-white disabled:opacity-70" wire:loading.attr="disabled" wire:target="lookup">
                     <span wire:loading.remove wire:target="lookup">{{ __('app.search') }}</span>
-                    <span wire:loading wire:target="lookup">…</span>
+                    <span wire:loading.flex wire:target="lookup" class="items-center gap-2"><x-spinner /> {{ __('app.searching') }}</span>
                 </button>
             </form>
 
@@ -80,7 +80,10 @@
                                             <input type="checkbox" value="{{ $media['id'] }}" wire:model="selected" class="size-4 accent-ink">
                                         </label>
                                     @endif
-                                    <button type="button" wire:click="download('{{ $media['id'] }}')" class="ml-auto rounded-xl bg-ink px-4 py-2 text-sm text-white">{{ __('app.download') }}</button>
+                                    <button type="button" wire:click="download('{{ $media['id'] }}')" wire:loading.attr="disabled" wire:target="download,downloadSelected,downloadAll" class="pg-press ml-auto inline-flex items-center gap-2 rounded-xl bg-ink px-4 py-2 text-sm text-white disabled:opacity-70">
+                                        <span wire:loading.remove wire:target="download,downloadSelected,downloadAll">{{ __('app.download') }}</span>
+                                        <span wire:loading.flex wire:target="download,downloadSelected,downloadAll" class="items-center gap-2"><x-spinner /> {{ __('app.loading') }}</span>
+                                    </button>
                                 </div>
                             </div>
                         @endforeach
@@ -104,18 +107,24 @@
 
             @if ($tweet && count($tweet['media']) > 1)
                 <div class="mt-6 flex flex-col gap-3">
-                    <button type="button" wire:click="downloadSelected" class="rounded-2xl bg-ink px-4 py-3 text-sm text-white">{{ __('app.download_selected') }}</button>
-                    <button type="button" wire:click="downloadAll" class="rounded-2xl border border-ink px-4 py-3 text-sm">{{ __('app.download_all') }}</button>
+                    <button type="button" wire:click="downloadSelected" wire:loading.attr="disabled" wire:target="download,downloadSelected,downloadAll" class="pg-press inline-flex items-center justify-center gap-2 rounded-2xl bg-ink px-4 py-3 text-sm text-white disabled:opacity-70">
+                        <span wire:loading.remove wire:target="downloadSelected">{{ __('app.download_selected') }}</span>
+                        <span wire:loading.flex wire:target="downloadSelected" class="items-center gap-2"><x-spinner /> {{ __('app.preparing_generic') }}</span>
+                    </button>
+                    <button type="button" wire:click="downloadAll" wire:loading.attr="disabled" wire:target="download,downloadSelected,downloadAll" class="pg-press inline-flex items-center justify-center gap-2 rounded-2xl border border-ink px-4 py-3 text-sm disabled:opacity-70">
+                        <span wire:loading.remove wire:target="downloadAll">{{ __('app.download_all') }}</span>
+                        <span wire:loading.flex wire:target="downloadAll" class="items-center gap-2"><x-spinner /> {{ __('app.preparing_generic') }}</span>
+                    </button>
                     <p class="text-xs leading-5 text-neutral-500 lg:hidden">{{ __('app.zip_mobile') }}</p>
                 </div>
             @endif
 
             @if ($progress)
-                <p class="mt-4 text-sm">{{ $progress }}</p>
+                <p class="mt-4 inline-flex items-center gap-2 text-sm" aria-live="polite"><x-spinner /> {{ $progress }}</p>
             @endif
 
             @if ($downloadUrl)
-                <a href="{{ $downloadUrl }}" class="mt-4 inline-flex rounded-2xl bg-accent px-4 py-3 text-sm font-medium text-ink">{{ __('app.save_file') }}</a>
+                <a href="{{ $downloadUrl }}" class="pg-press mt-4 inline-flex rounded-2xl bg-accent px-4 py-3 text-sm font-medium text-ink">{{ __('app.save_file') }}</a>
                 <p class="mt-2 text-xs text-neutral-500">{{ __('app.ready') }}</p>
             @endif
         </x-card>

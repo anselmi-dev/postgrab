@@ -17,3 +17,53 @@
 [x-cloak] {
     display: none !important;
 }
+
+button,
+a,
+select,
+summary,
+label:has(input),
+[role='button'] {
+    cursor: pointer;
+}
+
+button:disabled,
+[aria-disabled='true'] {
+    cursor: not-allowed;
+}
+
+.pg-press {
+    transition: transform 180ms ease, opacity 180ms ease;
+}
+
+.pg-press:hover:not(:disabled) {
+    transform: translateY(-1px);
+}
+
+.pg-press:active:not(:disabled) {
+    transform: translateY(0) scale(0.98);
+}
+
+.pg-spin {
+    display: inline-block;
+    width: 1rem;
+    height: 1rem;
+    border: 2px solid currentColor;
+    border-right-color: transparent;
+    border-radius: 999px;
+    animation: pg-spin 0.7s linear infinite;
+}
+
+@keyframes pg-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .pg-press,
+    .pg-spin {
+        animation: none;
+        transition: none;
+    }
+}

@@ -1,7 +1,7 @@
-<x-layouts.app>
+<x-layouts.app :title="__('app.login')" robots="noindex, nofollow">
     <x-card class="mx-auto max-w-md">
         <h2 class="font-display text-3xl font-semibold">{{ __('app.login') }}</h2>
-        <form method="POST" action="{{ route('login') }}" class="mt-6 space-y-4">
+        <form method="POST" action="{{ route('login') }}" class="mt-6 space-y-4" x-data="{ sending: false }" x-on:submit="sending = true">
             @csrf
             <label class="block text-sm">
                 {{ __('app.email') }}
@@ -21,7 +21,10 @@
                 <div class="cf-turnstile" data-sitekey="{{ config('downloader.turnstile_site_key') }}"></div>
                 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
             @endif
-            <button class="w-full rounded-2xl bg-ink py-3 text-white">{{ __('app.login') }}</button>
+            <button class="pg-press inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-ink py-3 text-white disabled:opacity-70" :disabled="sending">
+                <span x-show="!sending">{{ __('app.login') }}</span>
+                <span x-show="sending" x-cloak class="inline-flex items-center gap-2"><x-spinner /> {{ __('app.loading') }}</span>
+            </button>
         </form>
         <p class="mt-4 text-sm"><a href="{{ route('password.request') }}" class="underline">{{ __('app.forgot') }}</a></p>
         <p class="mt-2 text-sm">{{ __('app.no_account') }} <a href="{{ route('register') }}" class="underline">{{ __('app.register') }}</a></p>

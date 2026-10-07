@@ -1,16 +1,62 @@
+@props([
+    'title' => null,
+    'description' => null,
+    'robots' => 'index, follow',
+    'canonical' => null,
+])
+
+@php
+    $pageTitle = $title ? $title.' — '.config('app.name') : config('app.name');
+    $pageDescription = $description ?: __('app.seo_description');
+    $pageCanonical = $canonical ?: url()->current();
+    $ogLocale = app()->getLocale() === 'en' ? 'en_US' : 'es_AR';
+@endphp
+
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{ $title ?? config('app.name') }}</title>
+    <title>{{ $pageTitle }}</title>
+    <meta name="description" content="{{ $pageDescription }}">
+    <meta name="robots" content="{{ $robots }}">
+    <link rel="canonical" href="{{ $pageCanonical }}">
+    <meta property="og:site_name" content="{{ config('app.name') }}">
+    <meta property="og:title" content="{{ $pageTitle }}">
+    <meta property="og:description" content="{{ $pageDescription }}">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ $pageCanonical }}">
+    <meta property="og:locale" content="{{ $ogLocale }}">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="{{ $pageTitle }}">
+    <meta name="twitter:description" content="{{ $pageDescription }}">
+    <meta name="theme-color" content="#0a0a0a">
+    @if (request()->routeIs('home'))
+        <script type="application/ld+json">
+            {!! json_encode([
+                '@context' => 'https://schema.org',
+                '@type' => 'WebApplication',
+                'name' => config('app.name'),
+                'url' => route('home'),
+                'applicationCategory' => 'MultimediaApplication',
+                'operatingSystem' => 'Web',
+                'description' => __('app.seo_description'),
+                'inLanguage' => ['es', 'en'],
+                'offers' => [
+                    '@type' => 'Offer',
+                    'price' => '0',
+                    'priceCurrency' => 'USD',
+                ],
+            ], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) !!}
+        </script>
+    @endif
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
 </head>
 <body class="min-h-screen bg-white text-ink antialiased">
     <div class="mx-auto max-w-6xl px-4 py-8 sm:px-6 lg:px-8 lg:py-12">
-        <header class="flex items-start justify-between gap-4">
+        <header data-reveal class="flex items-start justify-between gap-4">
             <div class="min-w-0">
                 <x-pill>{{ __('app.pill') }}</x-pill>
                 <h1 class="mt-6 font-display text-4xl leading-none font-semibold tracking-tight sm:text-5xl">
@@ -39,11 +85,11 @@
             </div>
         </header>
 
-        <main class="mt-10">
+        <main data-reveal class="mt-10">
             {{ $slot }}
         </main>
 
-        <footer class="mt-14 flex flex-wrap gap-x-5 gap-y-2 text-sm text-muted">
+        <footer data-reveal class="mt-14 flex flex-wrap gap-x-5 gap-y-2 text-sm text-muted">
             <a href="{{ route('legal.terms') }}" class="hover:text-ink">{{ __('app.terms') }}</a>
             <a href="{{ route('legal.privacy') }}" class="hover:text-ink">{{ __('app.privacy') }}</a>
             <a href="{{ route('legal.dmca') }}" class="hover:text-ink">{{ __('app.dmca') }}</a>

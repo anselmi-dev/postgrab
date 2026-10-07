@@ -1,4 +1,4 @@
-<x-layouts.app>
+<x-layouts.app :title="__('legal.dmca_title')" :description="__('legal.dmca_body')">
     <x-card class="mx-auto max-w-3xl">
         <p class="text-xs font-medium tracking-wide text-muted uppercase">{{ __('app.draft') }}</p>
         <h2 class="mt-3 font-display text-3xl font-semibold">{{ __('legal.dmca_title') }}</h2>

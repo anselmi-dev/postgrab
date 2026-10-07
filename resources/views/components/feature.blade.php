@@ -1,6 +1,6 @@
 @props(['title'])
 <div class="flex items-start gap-4">
-    <div class="flex size-12 shrink-0 items-center justify-center rounded-full bg-accent text-ink">
+    <div data-motion="pop" class="flex size-12 shrink-0 items-center justify-center rounded-full bg-accent text-ink">
         {{ $icon }}
     </div>
     <div>

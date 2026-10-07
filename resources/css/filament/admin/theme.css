@@ -32,6 +32,12 @@
     color: #0a0a0a !important;
 }
 
+.fi-btn,
+.fi-sidebar-item-btn,
+.fi-link {
+    cursor: pointer;
+}
+
 .fi-section,
 .fi-wi-stats-overview-stat,
 .fi-ta-ctn {

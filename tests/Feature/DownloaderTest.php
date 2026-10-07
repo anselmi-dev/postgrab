@@ -196,7 +196,12 @@ it('downloads a photo from twimg and refuses other hosts', function () {
 });
 
 it('shows the public page', function () {
-    $this->get('/')->assertOk()->assertSee('Descargá videos y fotos');
+    $this->get('/')
+        ->assertOk()
+        ->assertSee('Descargá videos y fotos')
+        ->assertSee('name="description"', false)
+        ->assertSee(__('app.seo_description'), false)
+        ->assertSee('application/ld+json', false);
 });
 
 it('reuses a cached file when the same photo is requested again', function () {

@@ -1,4 +1,4 @@
-<x-layouts.app>
+<x-layouts.app :title="__('app.seo_title')" :canonical="route('home')">
     <x-ad placement="top" class="mb-6" />
 
     <livewire:tweet-lookup />
