@@ -1,0 +1,19 @@
+@import 'tailwindcss';
+
+@source '../views/**/*.blade.php';
+@source '../../app/Livewire/**/*.php';
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+
+@theme {
+    --color-ink: #0a0a0a;
+    --color-muted: #9ca3af;
+    --color-surface: #f5f5f5;
+    --color-accent: #e4f86b;
+    --radius-card: 1.5rem;
+    --font-display: 'Inter Tight', 'Inter', sans-serif;
+    --font-sans: 'Inter', sans-serif;
+}
+
+[x-cloak] {
+    display: none !important;
+}

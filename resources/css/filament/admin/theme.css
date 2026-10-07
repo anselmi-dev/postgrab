@@ -1,0 +1,39 @@
+@import '../../../../vendor/filament/filament/resources/css/theme.css';
+
+@source '../../../../app/Filament/**/*';
+@source '../../../../resources/views/filament/**/*';
+
+.fi-body {
+    background-color: #f5f5f5 !important;
+}
+
+.fi-sidebar {
+    background-color: #171717 !important;
+    color: #f5f5f5 !important;
+}
+
+.fi-sidebar .fi-sidebar-item-label,
+.fi-sidebar .fi-sidebar-group-label {
+    color: #e5e5e5 !important;
+}
+
+.fi-sidebar-item.fi-active > .fi-sidebar-item-btn {
+    background-color: #e4f86b !important;
+    color: #0a0a0a !important;
+}
+
+.fi-sidebar-item.fi-active .fi-sidebar-item-label,
+.fi-sidebar-item.fi-active .fi-sidebar-item-icon {
+    color: #0a0a0a !important;
+}
+
+.fi-btn.fi-color-primary {
+    background-color: #e4f86b !important;
+    color: #0a0a0a !important;
+}
+
+.fi-section,
+.fi-wi-stats-overview-stat,
+.fi-ta-ctn {
+    background-color: #ffffff;
+}
