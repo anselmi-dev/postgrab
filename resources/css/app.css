@@ -44,6 +44,20 @@ button:disabled,
     transform: translateY(0) scale(0.98);
 }
 
+.pg-diamond {
+    transform: rotate(45deg);
+    transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.pg-diamond:hover {
+    transform: rotate(45deg) scale(1.12);
+}
+
+.pg-diamond:active {
+    transform: rotate(45deg) scale(0.92);
+    transition-duration: 0.12s;
+}
+
 .pg-spin {
     display: inline-block;
     width: 1rem;
@@ -62,8 +76,14 @@ button:disabled,
 
 @media (prefers-reduced-motion: reduce) {
     .pg-press,
-    .pg-spin {
+    .pg-spin,
+    .pg-diamond {
         animation: none;
         transition: none;
+    }
+
+    .pg-diamond:hover,
+    .pg-diamond:active {
+        transform: rotate(45deg);
     }
 }

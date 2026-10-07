@@ -80,6 +80,9 @@
     <style>
         html.motion [data-reveal] { opacity: 0; transform: translateY(18px); }
     </style>
+    <link rel="icon" href="{{ asset('favicon.svg') }}" type="image/svg+xml">
+    <link rel="icon" href="{{ asset('favicon.ico') }}" sizes="32x32">
+    <link rel="apple-touch-icon" href="{{ asset('apple-touch-icon.png') }}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ $pageTitle }}</title>
@@ -126,7 +129,7 @@
                 </a>
                 <div class="flex shrink-0 items-center gap-2 sm:gap-3">
                 <details class="relative">
-                    <summary class="inline-flex size-10 list-none items-center justify-center rounded-xl bg-ink text-xs font-semibold text-accent marker:hidden sm:size-11 [&::-webkit-details-marker]:hidden" style="transform: rotate(45deg)" aria-label="{{ __('app.language') }}">
+                    <summary class="pg-diamond inline-flex size-10 list-none items-center justify-center rounded-xl bg-ink text-xs font-semibold text-accent marker:hidden sm:size-11 [&::-webkit-details-marker]:hidden" aria-label="{{ __('app.language') }}">
                         <span style="transform: rotate(-45deg)">{{ strtoupper($currentLocale) }}</span>
                     </summary>
                     <div class="absolute right-0 z-20 mt-3 w-44 rounded-2xl border border-neutral-200 bg-white p-2 shadow-lg">
@@ -136,11 +139,11 @@
                     </div>
                 </details>
                 @auth
-                    <a href="{{ route('history') }}" class="inline-flex size-10 items-center justify-center rounded-xl bg-ink text-accent sm:size-11" style="transform: rotate(45deg)" title="{{ __('app.history') }}">
+                    <a href="{{ route('history') }}" class="pg-diamond inline-flex size-10 items-center justify-center rounded-xl bg-ink text-accent sm:size-11" title="{{ __('app.history') }}">
                         <svg class="size-4" style="transform: rotate(-45deg)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 8v4l3 2"/><circle cx="12" cy="12" r="8"/></svg>
                     </a>
                 @else
-                    <a href="{{ route('login') }}" class="inline-flex size-10 items-center justify-center rounded-xl border border-neutral-200 text-neutral-500 sm:size-11" style="transform: rotate(45deg)" title="{{ __('app.account') }}">
+                    <a href="{{ route('login') }}" class="pg-diamond inline-flex size-10 items-center justify-center rounded-xl border border-neutral-200 text-neutral-500 sm:size-11" title="{{ __('app.account') }}">
                         <svg class="size-4" style="transform: rotate(-45deg)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="3"/><path d="M5 19c1.5-3 3.5-4.5 7-4.5S17.5 16 19 19"/></svg>
                     </a>
                 @endauth

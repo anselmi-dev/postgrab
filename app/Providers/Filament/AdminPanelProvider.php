@@ -37,6 +37,7 @@ class AdminPanelProvider extends PanelProvider
             ->sidebarWidth('17.5rem')
             ->globalSearch(position: GlobalSearchPosition::Sidebar)
             ->userMenu(position: UserMenuPosition::Sidebar)
+            ->favicon(asset('favicon.svg'))
             ->font('Plus Jakarta Sans')
             ->viteTheme('resources/css/filament/admin/theme.css')
             ->colors([
