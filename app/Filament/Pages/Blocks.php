@@ -12,6 +12,10 @@ class Blocks extends Page
 {
     protected static string|\BackedEnum|null $navigationIcon = Heroicon::OutlinedNoSymbol;
 
+    protected static string|\UnitEnum|null $navigationGroup = 'Actividad';
+
+    protected static ?int $navigationSort = 3;
+
     protected static ?string $navigationLabel = 'Bloqueos';
 
     protected static ?string $title = 'Bloqueos';

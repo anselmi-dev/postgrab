@@ -2,38 +2,36 @@
 
 namespace App\Filament\Widgets;
 
-use App\Models\UsageEvent;
-use Filament\Widgets\ChartWidget;
-use Illuminate\Support\Carbon;
+use App\Support\UsageSeries;
+use Filament\Widgets\Widget;
 
-class UsageChart extends ChartWidget
+class UsageChart extends Widget
 {
-    protected ?string $heading = 'Últimos 7 días';
+    protected static ?int $sort = 2;
 
-    protected function getType(): string
+    protected int|string|array $columnSpan = 'full';
+
+    protected string $view = 'filament.widgets.usage-chart';
+
+    public string $range = 'semana';
+
+    public function setRange(string $range): void
     {
-        return 'line';
-    }
-
-    protected function getData(): array
-    {
-        $labels = [];
-        $lookups = [];
-        $downloads = [];
-
-        foreach (range(6, 0) as $daysAgo) {
-            $day = Carbon::today()->subDays($daysAgo);
-            $labels[] = $day->format('d/m');
-            $lookups[] = UsageEvent::query()->where('type', 'lookup')->whereDate('created_at', $day)->count();
-            $downloads[] = UsageEvent::query()->where('type', 'download')->whereDate('created_at', $day)->sum('units');
+        if (! in_array($range, ['semana', 'mes', 'ano'], true)) {
+            return;
         }
 
+        $this->range = $range;
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    protected function getViewData(): array
+    {
         return [
-            'datasets' => [
-                ['label' => 'Consultas', 'data' => $lookups],
-                ['label' => 'Descargas', 'data' => $downloads],
-            ],
-            'labels' => $labels,
+            'range' => $this->range,
+            'chart' => UsageSeries::chart($this->range),
         ];
     }
 }

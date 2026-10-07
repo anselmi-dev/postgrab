@@ -8,6 +8,7 @@ use Filament\Actions\Action;
 use Filament\Actions\DeleteAction;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
+use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
@@ -16,7 +17,15 @@ class UserResource extends Resource
 {
     protected static ?string $model = User::class;
 
+    protected static string|\BackedEnum|null $navigationIcon = Heroicon::OutlinedUsers;
+
+    protected static string|\UnitEnum|null $navigationGroup = 'Administración';
+
+    protected static ?int $navigationSort = 1;
+
     protected static ?string $navigationLabel = 'Usuarios';
+
+    protected static ?string $recordTitleAttribute = 'email';
 
     protected static ?string $modelLabel = 'usuario';
 

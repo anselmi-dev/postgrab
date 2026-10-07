@@ -15,6 +15,10 @@ class ManageDownloader extends SettingsPage
 
     protected static string|\BackedEnum|null $navigationIcon = Heroicon::OutlinedCog6Tooth;
 
+    protected static string|\UnitEnum|null $navigationGroup = 'Administración';
+
+    protected static ?int $navigationSort = 2;
+
     protected static ?string $navigationLabel = 'Ajustes';
 
     protected static ?string $title = 'Ajustes';
