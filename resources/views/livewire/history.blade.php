@@ -34,7 +34,7 @@
                         <p class="mt-1 text-xs text-muted">{{ $item->updated_at->locale(app()->getLocale())->isoFormat('D MMM YYYY') }}</p>
                     </div>
                     <div class="flex gap-2">
-                        <a href="{{ route('home', ['url' => $item->url]) }}" class="rounded-xl bg-ink px-4 py-2 text-sm text-white">{{ __('app.again') }}</a>
+                        <a href="{{ \App\Support\Locales::url(query: ['url' => $item->url]) }}" class="rounded-xl bg-ink px-4 py-2 text-sm text-white">{{ __('app.again') }}</a>
                         <button type="button" wire:click="delete({{ $item->id }})" class="rounded-xl border border-neutral-200 px-4 py-2 text-sm">{{ __('app.delete') }}</button>
                     </div>
                 </x-card>

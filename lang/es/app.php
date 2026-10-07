@@ -1,14 +1,14 @@
 <?php
 
 return [
-    'pill' => 'Descargador de X',
-    'title_strong' => 'Descargá videos y fotos',
-    'title_muted' => 'de cualquier post de X',
+    'pill' => 'Descargador de Twitter',
+    'title_strong' => 'Descargá videos de Twitter',
+    'title_muted' => 'en MP4, fotos y GIFs',
     'search' => 'Buscar',
     'searching' => 'Buscando',
     'loading' => 'Cargando',
-    'seo_title' => 'Descargá videos y fotos de cualquier post de X',
-    'seo_description' => 'Pegá un link de X y bajá las fotos, los videos y los GIFs. Sin cuenta, en la calidad original. El archivo se borra a las 24 horas.',
+    'seo_title' => 'Descargar videos de Twitter (X) en MP4',
+    'seo_description' => 'Pegá el enlace de un post público de X (Twitter) y guardá el video en MP4, las fotos o el GIF. Sin cuenta, en la calidad original. Se borra a las 24 horas.',
     'seo_history_description' => 'Posts que consultaste con tu cuenta.',
     'url_placeholder' => 'Pegá el link del post',
     'preview_empty' => 'El post aparece acá, con el texto y cada archivo numerado.',
@@ -89,4 +89,68 @@ return [
     'size_unknown' => 'tamaño al bajar',
     'actions' => 'Descargas',
     'actions_hint' => 'Elegí un archivo o armá un ZIP cuando el post tenga más de uno.',
+    'language' => 'Idioma',
+    'seo_intro_title' => 'Descargar videos y fotos de Twitter (X)',
+    'seo_intro_body' => 'Postgrab baja videos, fotos y GIFs de posts públicos de X, antes Twitter. Pegás el enlace, elegís la calidad y guardás el MP4 en el celular o en la computadora. No hace falta una cuenta de X ni una extensión del navegador.',
+    'seo_intro_body_2' => 'Cada archivo se genera en el momento y se borra del servidor a las 24 horas. Si el post es privado, está protegido o no tiene medios, no hay nada para descargar.',
+    'seo_how_title' => 'Cómo descargar un video de Twitter',
+    'seo_steps' => [
+        [
+            'title' => 'Copiá el enlace del post',
+            'body' => 'Abrí el post en x.com, twitter.com o en la app y usá Compartir, Copiar enlace. También sirve mobile.x.com.',
+        ],
+        [
+            'title' => 'Pegalo en Postgrab',
+            'body' => 'El post tiene que ser público y traer un video, una foto o un GIF. Tocá Buscar.',
+        ],
+        [
+            'title' => 'Guardá el MP4, la foto o el GIF',
+            'body' => 'Elegí la calidad del video. Si hay más de un archivo, bajá uno o armá un ZIP.',
+        ],
+    ],
+    'seo_examples_label' => 'Un enlace válido se ve así',
+    'seo_examples' => [
+        'https://x.com/usuario/status/1234567890',
+        'https://twitter.com/usuario/status/1234567890',
+    ],
+    'seo_formats_title' => 'Qué se puede guardar',
+    'seo_formats' => [
+        'Video en MP4, en la resolución del post.',
+        'Fotos en el tamaño original.',
+        'GIFs animados.',
+        'Hasta cuatro archivos del mismo post, de a uno o en un ZIP.',
+    ],
+    'seo_faq_title' => 'Preguntas frecuentes',
+    'seo_faq' => [
+        [
+            'q' => '¿Puedo descargar videos de una cuenta privada de Twitter?',
+            'a' => 'No. Solo entran posts públicos. Una cuenta privada o un post protegido no se puede leer.',
+        ],
+        [
+            'q' => '¿El video se descarga en MP4?',
+            'a' => 'Sí. El video se guarda en MP4, en la calidad que trae el post. Las fotos salen en el tamaño original y los GIFs siguen siendo GIF.',
+        ],
+        [
+            'q' => '¿Hace falta cuenta de X o de Postgrab?',
+            'a' => 'No. Podés buscar y descargar sin cuenta. Una cuenta de Postgrab solo guarda el historial de posts en este sitio.',
+        ],
+        [
+            'q' => '¿Funciona en iPhone y Android?',
+            'a' => 'Sí, desde el navegador. En el iPhone, Safari deja el archivo en Descargas. En Android queda en la carpeta Descargas. El ZIP se abre con Archivos; para la galería, bajá cada archivo por separado.',
+        ],
+        [
+            'q' => '¿Postgrab guarda los videos?',
+            'a' => 'No armamos una videoteca. El archivo temporal sale del CDN de X y se borra del servidor a las 24 horas. En tu dispositivo queda donde lo haya guardado el navegador.',
+        ],
+        [
+            'q' => '¿Hay un límite de descargas?',
+            'a' => 'Hay un tope por hora y por día para que el sitio siga rápido. La página muestra cuántas te quedan. Con una cuenta el tope es más alto.',
+        ],
+        [
+            'q' => '¿Sirve un enlace de twitter.com y de x.com?',
+            'a' => 'Sí. X y Twitter son el mismo servicio. El enlace tiene que ser el de un post, por ejemplo https://x.com/usuario/status/1234567890. Un perfil sin post no alcanza.',
+        ],
+    ],
+    'seo_notice' => 'El contenido es de quien lo publicó. Guardá una copia solo si tenés derecho a hacerlo.',
+    'seo_notice_link' => 'Pedir que retiremos un archivo',
 ];

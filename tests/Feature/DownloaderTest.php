@@ -196,11 +196,11 @@ it('downloads a photo from twimg and refuses other hosts', function () {
 });
 
 it('shows the public page', function () {
-    $this->get('/')
+    $this->get('/es')
         ->assertOk()
-        ->assertSee('Descargá videos y fotos')
+        ->assertSee('Descargá videos de Twitter')
         ->assertSee('name="description"', false)
-        ->assertSee(__('app.seo_description'), false)
+        ->assertSee(__('app.seo_description', [], 'es'), false)
         ->assertSee('application/ld+json', false);
 });
 

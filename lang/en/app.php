@@ -1,14 +1,14 @@
 <?php
 
 return [
-    'pill' => 'X downloader',
-    'title_strong' => 'Download videos and photos',
-    'title_muted' => 'from any post on X',
+    'pill' => 'Twitter downloader',
+    'title_strong' => 'Download Twitter videos',
+    'title_muted' => 'as MP4, photos, and GIFs',
     'search' => 'Search',
     'searching' => 'Searching',
     'loading' => 'Loading',
-    'seo_title' => 'Download videos and photos from any post on X',
-    'seo_description' => 'Paste an X link and save the photos, videos, and GIFs. No account required, original quality. The file is deleted after 24 hours.',
+    'seo_title' => 'Download Twitter (X) videos in MP4',
+    'seo_description' => 'Paste a public X (Twitter) post link and save the video as MP4, the photos, or the GIF. No account, original quality. Deleted after 24 hours.',
     'seo_history_description' => 'Posts you looked up with your account.',
     'url_placeholder' => 'Paste the post link',
     'preview_empty' => 'The post shows up here, with the text and each file numbered.',
@@ -89,4 +89,68 @@ return [
     'size_unknown' => 'size when downloaded',
     'actions' => 'Downloads',
     'actions_hint' => 'Pick a file, or build a ZIP when the post has more than one.',
+    'language' => 'Language',
+    'seo_intro_title' => 'Download Twitter (X) videos and photos',
+    'seo_intro_body' => 'Postgrab saves videos, photos, and GIFs from public posts on X, formerly Twitter. Paste the link, pick the quality, and keep the MP4 on your phone or computer. No X account and no browser extension.',
+    'seo_intro_body_2' => 'Each file is created at that moment and deleted from the server after 24 hours. A private account, a protected post, or a post with no media has nothing to download.',
+    'seo_how_title' => 'How to download a Twitter video',
+    'seo_steps' => [
+        [
+            'title' => 'Copy the post link',
+            'body' => 'Open the post on x.com, twitter.com, or in the app and use Share, Copy link. mobile.x.com works too.',
+        ],
+        [
+            'title' => 'Paste it into Postgrab',
+            'body' => 'The post must be public and include a video, a photo, or a GIF. Press Search.',
+        ],
+        [
+            'title' => 'Save the MP4, photo, or GIF',
+            'body' => 'Pick the video quality. If there is more than one file, save one or build a ZIP.',
+        ],
+    ],
+    'seo_examples_label' => 'A valid link looks like this',
+    'seo_examples' => [
+        'https://x.com/user/status/1234567890',
+        'https://twitter.com/user/status/1234567890',
+    ],
+    'seo_formats_title' => 'What you can save',
+    'seo_formats' => [
+        'Video as MP4, at the resolution on the post.',
+        'Photos at the original size.',
+        'Animated GIFs.',
+        'Up to four files from the same post, one by one or in a ZIP.',
+    ],
+    'seo_faq_title' => 'Frequently asked questions',
+    'seo_faq' => [
+        [
+            'q' => 'Can I download videos from a private Twitter account?',
+            'a' => 'No. Only public posts work. A private account or a protected post cannot be read.',
+        ],
+        [
+            'q' => 'Does the video download as MP4?',
+            'a' => 'Yes. The video is saved as MP4, at the quality on the post. Photos come out at the original size, and GIFs stay GIFs.',
+        ],
+        [
+            'q' => 'Do I need an X account or a Postgrab account?',
+            'a' => 'No. You can search and download without an account. A Postgrab account only keeps your post history on this site.',
+        ],
+        [
+            'q' => 'Does it work on iPhone and Android?',
+            'a' => 'Yes, in the browser. On iPhone, Safari puts the file in Downloads. On Android it goes to the Downloads folder. A ZIP opens in Files; for the gallery, save each file on its own.',
+        ],
+        [
+            'q' => 'Does Postgrab keep the videos?',
+            'a' => 'We do not run a video library. The temporary file comes from the X CDN and is deleted from the server after 24 hours. On your device it stays wherever the browser saved it.',
+        ],
+        [
+            'q' => 'Is there a download limit?',
+            'a' => 'There is a cap per hour and per day so the site stays fast. The page shows how many you have left. An account has a higher cap.',
+        ],
+        [
+            'q' => 'Do twitter.com and x.com links both work?',
+            'a' => 'Yes. X and Twitter are the same service. The link has to be a post, for example https://x.com/user/status/1234567890. A profile without a post is not enough.',
+        ],
+    ],
+    'seo_notice' => 'The content belongs to the person who published it. Save a copy only if you have the right to do so.',
+    'seo_notice_link' => 'Ask us to remove a file',
 ];
