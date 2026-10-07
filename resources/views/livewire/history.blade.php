@@ -11,9 +11,15 @@
         </div>
     </div>
 
+    <label class="mt-6 block">
+        <span class="sr-only">{{ __('app.history_search') }}</span>
+        <input wire:model.live.debounce.300ms="search" type="search" placeholder="{{ __('app.history_search') }}" class="w-full rounded-2xl bg-surface px-5 py-4 text-base text-ink outline-none ring-2 ring-transparent placeholder:text-muted focus:ring-accent">
+    </label>
+
+    <div wire:loading.delay.class="opacity-50" wire:target="search" class="mt-6">
     @if ($requests->isEmpty())
         <x-card>
-            <p>{{ __('app.history_empty') }}</p>
+            <p>{{ $search === '' ? __('app.history_empty') : __('app.history_no_results') }}</p>
         </x-card>
     @else
         <div class="grid grid-cols-1 gap-4">
@@ -36,4 +42,5 @@
         </div>
         <div class="mt-6">{{ $requests->links() }}</div>
     @endif
+    </div>
 </div>

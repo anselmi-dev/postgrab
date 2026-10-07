@@ -124,8 +124,10 @@
             @endif
 
             @if ($downloadUrl)
-                <a href="{{ $downloadUrl }}" class="pg-press mt-4 inline-flex rounded-2xl bg-accent px-4 py-3 text-sm font-medium text-ink">{{ __('app.save_file') }}</a>
-                <p class="mt-2 text-xs text-neutral-500">{{ __('app.ready') }}</p>
+                <div x-data="{ saved: false }" x-show="!saved">
+                    <a href="{{ $downloadUrl }}" x-on:click="setTimeout(() => saved = true, 0)" class="pg-press mt-4 inline-flex rounded-2xl bg-accent px-4 py-3 text-sm font-medium text-ink">{{ __('app.save_file') }}</a>
+                    <p class="mt-2 text-xs text-neutral-500">{{ __('app.ready') }}</p>
+                </div>
             @endif
         </x-card>
     </div>

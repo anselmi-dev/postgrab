@@ -56,6 +56,8 @@ return [
     'no_account' => 'No account yet?',
     'has_account' => 'Already have an account?',
     'history_empty' => 'You have not looked up a post with this account yet.',
+    'history_search' => 'Search history',
+    'history_no_results' => 'No post matches that search.',
     'again' => 'Download again',
     'delete' => 'Delete',
     'clear_history' => 'Clear history',

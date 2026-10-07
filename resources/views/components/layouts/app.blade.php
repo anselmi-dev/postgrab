@@ -16,6 +16,19 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
+    <script>
+        if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            document.documentElement.classList.add('motion')
+            window.setTimeout(() => {
+                if (! window.__revealStarted) {
+                    document.documentElement.classList.remove('motion')
+                }
+            }, 2000)
+        }
+    </script>
+    <style>
+        html.motion [data-reveal] { opacity: 0; transform: translateY(18px); }
+    </style>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ $pageTitle }}</title>
@@ -57,13 +70,13 @@
 <body class="min-h-screen bg-white text-ink antialiased">
     <div class="mx-auto max-w-6xl px-4 py-8 sm:px-6 lg:px-8 lg:py-12">
         <header data-reveal class="flex items-start justify-between gap-4">
-            <div class="min-w-0">
+            <a href="{{ route('home') }}" class="min-w-0 no-underline">
                 <x-pill>{{ __('app.pill') }}</x-pill>
                 <h1 class="mt-6 font-display text-4xl leading-none font-semibold tracking-tight sm:text-5xl">
                     <span class="block text-ink">{{ __('app.title_strong') }}</span>
                     <span class="mt-1 block text-muted">{{ __('app.title_muted') }}</span>
                 </h1>
-            </div>
+            </a>
             <div class="flex shrink-0 items-center gap-2 sm:gap-3">
                 @foreach (['es', 'en'] as $locale)
                     <form method="POST" action="{{ route('locale', $locale) }}">

@@ -56,6 +56,8 @@ return [
     'no_account' => '¿No tenés cuenta?',
     'has_account' => '¿Ya tenés cuenta?',
     'history_empty' => 'Todavía no buscaste ningún post con esta cuenta.',
+    'history_search' => 'Buscar en el historial',
+    'history_no_results' => 'Ningún post coincide con esa búsqueda.',
     'again' => 'Volver a descargar',
     'delete' => 'Borrar',
     'clear_history' => 'Vaciar historial',
