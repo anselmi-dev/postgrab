@@ -9,14 +9,17 @@ use App\Exceptions\TweetHasNoMediaException;
 use App\Exceptions\TweetNotFoundException;
 use App\Exceptions\UnsafeMediaUrlException;
 use App\Jobs\DownloadMediaJob;
+use App\Livewire\TweetLookup;
 use App\Models\BlockedTweet;
 use App\Models\DownloadedFile;
 use App\Services\TweetService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
+use Livewire\Livewire;
 
 function videoPayload(): array
 {
@@ -126,13 +129,49 @@ it('serves a ready file only through a signed url', function () {
 
     Storage::disk('downloads')->put($file->path, 'image');
 
-    $signed = URL::temporarySignedRoute('download.show', now()->addMinutes(10), ['file' => $file]);
+    $signed = URL::temporarySignedRoute('download.show', now()->addMinutes(10), ['file' => $file], absolute: false);
 
-    $this->get($signed)
-        ->assertOk()
-        ->assertHeader('X-Content-Type-Options', 'nosniff');
+    $response = $this->get($signed);
+
+    $response->assertOk()
+        ->assertHeader('X-Content-Type-Options', 'nosniff')
+        ->assertHeader('content-type', 'application/octet-stream');
+
+    expect($response->headers->get('content-disposition'))
+        ->toContain('attachment')
+        ->toContain('jack_20_1.jpg');
 
     $this->get(route('download.show', $file))->assertForbidden();
+});
+
+it('offers a same-origin download link the browser can save', function () {
+    Livewire::test(TweetLookup::class)
+        ->set('downloadUrl', '/download/1?expires=1&signature=abc')
+        ->set('downloadName', 'jack_20_1.mp4')
+        ->assertSeeHtml('download="jack_20_1.mp4"')
+        ->assertSeeHtml('href="/download/1?expires=1&amp;signature=abc"');
+});
+
+it('surfaces a failed download instead of waiting forever', function () {
+    $file = DownloadedFile::query()->create([
+        'uuid' => (string) Str::uuid(),
+        'tweet_id' => '20',
+        'variant' => 'photo:1:original',
+        'disk' => 'downloads',
+        'extension' => 'jpg',
+        'download_name' => 'jack_20_1.jpg',
+        'expires_at' => now()->addHour(),
+    ]);
+
+    Cache::put(DownloadedFile::failureKey($file->id), 'failed', now()->addMinutes(10));
+
+    $component = new TweetLookup;
+    $component->tweet = ['id' => '20'];
+    $component->pendingFileId = $file->id;
+    $component->refreshDownload();
+
+    expect($component->error)->toBe(__('app.error_download_failed'))
+        ->and($component->pendingFileId)->toBeNull();
 });
 
 it('prunes expired downloads and deletes the file', function () {

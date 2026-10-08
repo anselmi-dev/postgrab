@@ -74,6 +74,7 @@ return [
     'error_download_limit' => 'Limit erreicht. Du kannst es um :time erneut versuchen.',
     'error_concurrent' => 'Warte, bis der laufende Download fertig ist.',
     'error_too_large' => 'Diese Datei ist größer als erlaubt.',
+    'error_download_failed' => 'Die Datei konnte nicht heruntergeladen werden. Versuch es noch einmal.',
     'register_limited' => 'Zu viele Registrierungen aus diesem Netz. Versuch es später.',
     'turnstile_failed' => 'Wir konnten nicht prüfen, dass du eine Person bist.',
     'suspended' => 'Dieses Konto ist gesperrt.',

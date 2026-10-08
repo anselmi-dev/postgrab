@@ -19,6 +19,7 @@ use App\Models\LinkRequest;
 use App\Services\TweetService;
 use App\Support\Bytes;
 use Illuminate\Support\Facades\Bus;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\URL;
 use Livewire\Attributes\Locked;
 use Livewire\Component;
@@ -45,6 +46,8 @@ class TweetLookup extends Component
 
     public ?string $downloadUrl = null;
 
+    public ?string $downloadName = null;
+
     public ?string $progress = null;
 
     public function mount(): void
@@ -60,7 +63,7 @@ class TweetLookup extends Component
     public function lookup(): void
     {
         $this->validate(['url' => ['required', 'string', 'max:500']]);
-        $this->reset(['error', 'challenge', 'downloadUrl', 'pendingFileId', 'progress', 'selected']);
+        $this->reset(['error', 'challenge', 'downloadUrl', 'downloadName', 'pendingFileId', 'progress', 'selected']);
 
         try {
             $data = app(TweetService::class)->lookup($this->url, request(), $this->turnstileToken);
@@ -123,6 +126,8 @@ class TweetLookup extends Component
         $media = $tweet?->mediaById($mediaId);
 
         if (! $tweet || ! $media) {
+            $this->error = __('app.error_download_failed');
+
             return;
         }
 
@@ -156,6 +161,18 @@ class TweetLookup extends Component
             return;
         }
 
+        $reason = Cache::pull(DownloadedFile::failureKey($file->id));
+
+        if (is_string($reason)) {
+            $this->pendingFileId = null;
+            $this->progress = null;
+            $this->error = $reason === 'too_large'
+                ? __('app.error_too_large')
+                : __('app.error_download_failed');
+
+            return;
+        }
+
         if ($file->batch_id) {
             $batch = Bus::findBatch($file->batch_id);
 
@@ -168,9 +185,7 @@ class TweetLookup extends Component
         }
 
         if ($file->isReady()) {
-            $this->downloadUrl = URL::temporarySignedRoute('download.show', now()->addMinutes(10), ['file' => $file]);
-            $this->pendingFileId = null;
-            $this->progress = null;
+            $this->offer($file);
         }
     }
 
@@ -207,7 +222,7 @@ class TweetLookup extends Component
 
     private function start(callable $callback): void
     {
-        $this->reset(['error', 'downloadUrl', 'progress']);
+        $this->reset(['error', 'downloadUrl', 'downloadName', 'progress']);
 
         try {
             $file = $callback();
@@ -224,13 +239,21 @@ class TweetLookup extends Component
         }
 
         if ($file->isReady()) {
-            $this->downloadUrl = URL::temporarySignedRoute('download.show', now()->addMinutes(10), ['file' => $file]);
+            $this->offer($file);
 
             return;
         }
 
         $this->pendingFileId = $file->id;
         $this->progress = __('app.preparing_generic');
+    }
+
+    private function offer(DownloadedFile $file): void
+    {
+        $this->downloadUrl = URL::temporarySignedRoute('download.show', now()->addMinutes(10), ['file' => $file], absolute: false);
+        $this->downloadName = $file->download_name;
+        $this->pendingFileId = null;
+        $this->progress = null;
     }
 
     private function tweetData(): ?TweetData

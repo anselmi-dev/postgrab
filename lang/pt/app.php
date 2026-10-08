@@ -74,6 +74,7 @@ return [
     'error_download_limit' => 'Você chegou ao limite. Pode voltar às :time.',
     'error_concurrent' => 'Espere o download atual terminar.',
     'error_too_large' => 'Esse arquivo passa do tamanho permitido.',
+    'error_download_failed' => 'Não foi possível baixar o arquivo. Tente de novo.',
     'register_limited' => 'Cadastros demais nesta rede. Tente mais tarde.',
     'turnstile_failed' => 'Não conseguimos verificar que você é uma pessoa.',
     'suspended' => 'Esta conta está suspensa.',

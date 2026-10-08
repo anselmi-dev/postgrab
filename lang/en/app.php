@@ -74,6 +74,7 @@ return [
     'error_download_limit' => 'You hit the limit. You can try again at :time.',
     'error_concurrent' => 'Wait until the current download finishes.',
     'error_too_large' => 'That file is larger than the limit.',
+    'error_download_failed' => 'The file could not be downloaded. Try again.',
     'register_limited' => 'Too many signups from this network. Try later.',
     'turnstile_failed' => 'We could not verify you are a person.',
     'suspended' => 'This account is suspended.',

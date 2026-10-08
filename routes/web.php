@@ -40,7 +40,7 @@ Route::get('/sitemap.xml', fn () => response()
     ->header('Content-Type', 'application/xml'));
 
 Route::get('/download/{file}', DownloadController::class)
-    ->middleware('signed')
+    ->middleware('signed:relative')
     ->name('download.show');
 
 Route::middleware(['auth', 'verified'])->group(function () {

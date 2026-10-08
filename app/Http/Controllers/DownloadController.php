@@ -14,6 +14,7 @@ class DownloadController
         abort_unless(Storage::disk($file->disk)->exists($file->path), 404);
 
         return Storage::disk($file->disk)->download($file->path, $file->download_name, [
+            'Content-Type' => 'application/octet-stream',
             'X-Content-Type-Options' => 'nosniff',
             'X-Robots-Tag' => 'noindex, nofollow',
         ]);

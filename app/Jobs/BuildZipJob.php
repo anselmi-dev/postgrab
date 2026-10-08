@@ -7,6 +7,7 @@ use App\Exceptions\DownloadTooLargeException;
 use App\Models\DownloadedFile;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 use ZipArchive;
 
@@ -29,6 +30,8 @@ class BuildZipJob implements ShouldQueue
 
     public function handle(): void
     {
+        set_time_limit($this->timeout);
+
         $zipFile = DownloadedFile::query()->find($this->zipFileId);
 
         if (! $zipFile) {
@@ -86,9 +89,15 @@ class BuildZipJob implements ShouldQueue
         }
     }
 
-    public function failed(): void
+    public function failed(?\Throwable $exception = null): void
     {
         $this->releaseSlot();
+
+        Cache::put(
+            DownloadedFile::failureKey($this->zipFileId),
+            $exception instanceof DownloadTooLargeException ? 'too_large' : 'failed',
+            now()->addMinutes(10),
+        );
     }
 
     private function releaseSlot(): void

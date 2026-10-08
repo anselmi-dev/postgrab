@@ -74,6 +74,7 @@ return [
     'error_download_limit' => 'Limite atteinte. Vous pourrez réessayer à :time.',
     'error_concurrent' => 'Attendez la fin du téléchargement en cours.',
     'error_too_large' => 'Ce fichier dépasse la taille autorisée.',
+    'error_download_failed' => 'Le fichier n\'a pas pu être téléchargé. Réessayez.',
     'register_limited' => 'Trop d\'inscriptions depuis ce réseau. Réessayez plus tard.',
     'turnstile_failed' => 'Nous n\'avons pas pu vérifier que vous êtes une personne.',
     'suspended' => 'Ce compte est suspendu.',

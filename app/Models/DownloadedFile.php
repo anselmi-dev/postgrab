@@ -46,6 +46,11 @@ class DownloadedFile extends Model
         }
     }
 
+    public static function failureKey(int $id): string
+    {
+        return 'download-failed:'.$id;
+    }
+
     public function isReady(): bool
     {
         return $this->ready_at !== null && $this->expires_at->isFuture() && filled($this->path);

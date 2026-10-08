@@ -52,7 +52,9 @@ class RequestMediaDownload
         $queue = $request->user() ? 'downloads-high' : 'downloads';
         $this->slots->acquire($subject, $request->user() !== null);
 
-        DownloadMediaJob::dispatch($variant->url, $file->id, $subject)->onQueue($queue);
+        DownloadMediaJob::dispatch($variant->url, $file->id, $subject)
+            ->onConnection($this->connection())
+            ->onQueue($queue);
 
         return $file;
     }
@@ -64,6 +66,11 @@ class RequestMediaDownload
             ->where('variant', $variant)
             ->where('expires_at', '>', now())
             ->first();
+    }
+
+    private function connection(): string
+    {
+        return config('queue.default') === 'sync' ? 'sync' : 'deferred';
     }
 
     private function record(Request $request, string $tweetId): void

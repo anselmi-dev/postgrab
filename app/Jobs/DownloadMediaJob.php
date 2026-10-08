@@ -10,6 +10,7 @@ use App\Support\TwimgUrl;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
 use Illuminate\Http\Client\PendingRequest;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 use Psr\Http\Message\RequestInterface;
@@ -32,6 +33,8 @@ class DownloadMediaJob implements ShouldQueue
 
     public function handle(): void
     {
+        set_time_limit($this->timeout);
+
         $file = DownloadedFile::query()->find($this->downloadedFileId);
 
         if (! $file || $file->isReady()) {
@@ -48,9 +51,15 @@ class DownloadMediaJob implements ShouldQueue
         }
     }
 
-    public function failed(): void
+    public function failed(?\Throwable $exception = null): void
     {
         $this->releaseSlot();
+
+        Cache::put(
+            DownloadedFile::failureKey($this->downloadedFileId),
+            $exception instanceof DownloadTooLargeException ? 'too_large' : 'failed',
+            now()->addMinutes(10),
+        );
     }
 
     private function download(DownloadedFile $file): void
